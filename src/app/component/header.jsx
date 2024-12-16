@@ -5,7 +5,7 @@ function Header() {
     <>
     <div id="navbar" className="flex justify-center items-center w-full h-[10vh] gap-[4rem]">
       <div id="logo" className="w-[10%]">    
-        <Image src="/logos.png" alt="hero" width={0} height={0} sizes="100vw" className="w-full h-auto" />
+        <Image src="/Logos.png" alt="Logo" width={0} height={0} sizes="100vw" className="w-full h-auto" />
       </div>
       <div id="nav" className="w-auto h-full">
         <ul className="flex justify-center items-center w-full h-full text-xl font-extralight font-sans text-[#FA5D36]">

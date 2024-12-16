@@ -38,7 +38,7 @@ export default function Home() {
 
       <div id="pic-area" className="w-[50%] flex justify-center items-center relative h-full">
         <div id="glow" className="absolute bg-white w-[45%] bg-opacity-20 -translate-y-[5rem] blur-2xl rounded-full h-[250px]"></div>
-        <img src="./me1.png" alt="Muhammad Abdullah" className="w-auto relative h-full z-20" style={{ 
+        <img src="/me1.png" alt="Muhammad Abdullah" className="w-auto relative h-full z-20" style={{ 
           // filter: "drop-shadow(0px 0px 20px #FA5D36)",
           transform: "scale(0.98)",
         }}/>
