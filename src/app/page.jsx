@@ -4,11 +4,102 @@ import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+import { Facebook, Instagram, Twitter, Youtube, Monitor, Palette, Layout, Lightbulb } from 'lucide-react'
 import Header from './component/header'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
   const mainRef = useRef(null)
+  const sectionRef = useRef(null)
+  const servicesRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Animate the service title and subtitle
+      gsap.from('#service-label', {
+        scrollTrigger: {
+          trigger: '#service-label',
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1
+      })
+
+      gsap.from('#service-title', {
+        scrollTrigger: {
+          trigger: '#service-title',
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2
+      })
+
+      // Animate service cards
+      const cards = document.querySelectorAll('.service-card')
+      cards.forEach((card, index) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          },
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          delay: 0.2 * index
+        })
+      })
+
+      // Animate background text
+      gsap.from('#background-text', {
+        scrollTrigger: {
+          trigger: '#background-text',
+          start: 'top 80%',
+          end: 'bottom 20%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 0,
+        scale: 0.8,
+        duration: 1.5
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  const services = [
+    {
+      icon: Monitor,
+      title: 'Website Design',
+      description: 'Lorem ipsum dolor sit amet adipiscing elit ut elit tellus consectetur'
+    },
+    {
+      icon: Palette,
+      title: 'Apps Design',
+      description: 'Lorem ipsum dolor sit amet adipiscing elit ut elit tellus consectetur'
+    },
+    {
+      icon: Layout,
+      title: 'UI/UX Design',
+      description: 'Lorem ipsum dolor sit amet adipiscing elit ut elit tellus consectetur'
+    },
+    {
+      icon: Lightbulb,
+      title: 'Logo Design',
+      description: 'Lorem ipsum dolor sit amet adipiscing elit ut elit tellus consectetur'
+    }
+  ]
 
   useGSAP(() => {
     const tl = gsap.timeline()
@@ -24,6 +115,7 @@ export default function Home() {
   }, { scope: mainRef })
 
   return (
+    <>
     <div ref={mainRef} id="main" className="w-full min-h-screen bg-[#2A2B30] text-white overflow-hidden">
       <Header className="z-10" />
       <div id="main-area" className="min-h-[90vh] w-full flex flex-col lg:flex-row justify-center items-center px-4 lg:px-0">
@@ -92,6 +184,58 @@ export default function Home() {
         </div>
       </div>
     </div>
+
+    <section ref={sectionRef} className="relative min-h-screen w-full bg-[#2A2B30] text-white overflow-hidden px-4 py-20 lg:px-20">
+      {/* Background Text */}
+      <div
+        id="background-text"
+        className="absolute bottom-0 left-0 right-0 text-[20vw] font-bold text-transparent pointer-events-none select-none"
+        style={{
+          WebkitTextStroke: '1px rgba(250, 93, 54, 0.1)',
+          lineHeight: '0.8'
+        }}
+      >
+        Services
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto">
+        {/* Section Header */}
+        <div className="mb-20">
+          <h3 id="service-label" className="text-[#FA5D36] text-lg md:text-xl mb-4 font-light tracking-wider">
+            # SERVICE
+          </h3>
+          <h2 id="service-title" className="text-4xl md:text-6xl font-bold">
+            Best Services.
+          </h2>
+        </div>
+
+        {/* Services Grid */}
+        <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className="service-card group p-6 rounded-lg border border-gray-800 hover:border-[#FA5D36] transition-all duration-300"
+            >
+              <div className="mb-6 w-12 h-12 flex items-center justify-center rounded-lg bg-[#FA5D36] bg-opacity-10 text-[#FA5D36] group-hover:bg-[#FA5D36] group-hover:text-white transition-all duration-300">
+                <service.icon size={24} />
+              </div>
+              <h3 className="text-xl font-semibold mb-4 group-hover:text-[#FA5D36] transition-all duration-300">
+                {service.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                {service.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    </>
+
+              
+
   )
 }
 
