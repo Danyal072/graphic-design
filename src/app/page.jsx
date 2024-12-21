@@ -7,6 +7,7 @@ import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Facebook, Instagram, Twitter, Youtube, Monitor, Palette, Layout, Lightbulb, ArrowRight } from 'lucide-react'
 import Header from './component/header'
+import Skills from './component/skill'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -533,6 +534,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+          <Skills/>
     </>
   )
 }
